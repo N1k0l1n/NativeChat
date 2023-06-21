@@ -29,7 +29,9 @@ const HomeScreen = ({ navigation }) => {
 
   function handleRegisterAndSignIn(isLogin) {
     if (currentUserName.trim() !== "") {
-      const index = allUsers.findIndex((userItem) => userItem === currentUserName);
+      const index = allUsers.findIndex(
+        (userItem) => userItem === currentUserName
+      );
 
       if (isLogin) {
         if (index === -1) {
