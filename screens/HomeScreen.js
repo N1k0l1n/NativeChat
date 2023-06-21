@@ -8,9 +8,10 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import homeImage from "../assets/togeather.png";
 import { GlobalContext } from "../context";
+import ActivityIndicator from "../common/ActivityIndicator";
 
 const HomeScreen = ({ navigation }) => {
   const {
@@ -24,11 +25,11 @@ const HomeScreen = ({ navigation }) => {
     setAllUsers,
   } = useContext(GlobalContext);
 
+  const [loading, setLoading] = useState(true);
+
   function handleRegisterAndSignIn(isLogin) {
     if (currentUserName.trim() !== "") {
-      const index = allUsers.findIndex(
-        (userItem) => userItem === currentUserName
-      );
+      const index = allUsers.findIndex((userItem) => userItem === currentUserName);
 
       if (isLogin) {
         if (index === -1) {
@@ -42,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
           setAllUsers(allUsers);
           setCurrentUser(currentUserName);
         } else {
-          Alert.alert("Already registered ! Please login");
+          Alert.alert("Already registered! Please login");
         }
       }
 
@@ -55,64 +56,73 @@ const HomeScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (currentUser.trim() !== "") navigation.navigate("ChatScreen");
-  }, [currentUser]);
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      if (currentUser.trim() !== "") navigation.navigate("ChatScreen");
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [currentUser, navigation]);
 
   console.log(allUsers, currentUser);
 
   return (
-    <View style={styles.mainWrapper}>
-      <ImageBackground source={homeImage} style={styles.homeImage} />
-      <View style={styles.content}>
-        {showLoginView ? (
-          <View style={styles.infoBlock}>
-            <View style={styles.loginInputContainer}>
-              <Text style={styles.heading}>Enter Your User Name</Text>
-              <TextInput
-                autoCorrect={false}
-                placeholder="Enter your user name"
-                style={styles.loginInput}
-                onChangeText={(value) => setCurrentUserName(value)}
-                value={currentUserName}
-              />
-            </View>
-            <View style={styles.buttonWrapper}>
-              <Pressable
-                onPress={() => handleRegisterAndSignIn(false)}
-                style={styles.button}
-              >
-                <View>
-                  <Text style={styles.buttonText}>Register</Text>
-                </View>
-              </Pressable>
-              <Pressable
-                onPress={() => handleRegisterAndSignIn(true)}
-                style={styles.button}
-              >
-                <View>
-                  <Text style={styles.buttonText}>Login</Text>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-        ) : (
-          <View style={styles.infoBlock}>
-            <Text style={styles.heading}>Connect , Grow and Inspire</Text>
-            <Text style={styles.subHeading}>
-              Connect people around the world for free
-            </Text>
-            <Pressable
-              style={styles.button}
-              onPress={() => setShowLoginView(true)}
-            >
-              <View>
-                <Text style={styles.buttonText}>Get Started</Text>
+    <>
+      <ActivityIndicator visible={loading} />
+      <View style={styles.mainWrapper}>
+        <ImageBackground source={homeImage} style={styles.homeImage} />
+        <View style={styles.content}>
+          {showLoginView ? (
+            <View style={styles.infoBlock}>
+              <View style={styles.loginInputContainer}>
+                <Text style={styles.heading}>Enter Your User Name</Text>
+                <TextInput
+                  autoCorrect={false}
+                  placeholder="Enter your user name"
+                  style={styles.loginInput}
+                  onChangeText={(value) => setCurrentUserName(value)}
+                  value={currentUserName}
+                />
               </View>
-            </Pressable>
-          </View>
-        )}
+              <View style={styles.buttonWrapper}>
+                <Pressable
+                  onPress={() => handleRegisterAndSignIn(false)}
+                  style={styles.button}
+                >
+                  <View>
+                    <Text style={styles.buttonText}>Register</Text>
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={() => handleRegisterAndSignIn(true)}
+                  style={styles.button}
+                >
+                  <View>
+                    <Text style={styles.buttonText}>Login</Text>
+                  </View>
+                </Pressable>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.infoBlock}>
+              <Text style={styles.heading}>Connect, Grow and Inspire</Text>
+              <Text style={styles.subHeading}>
+                Connect people around the world for free
+              </Text>
+              <Pressable
+                style={styles.button}
+                onPress={() => setShowLoginView(true)}
+              >
+                <View>
+                  <Text style={styles.buttonText}>Get Started</Text>
+                </View>
+              </Pressable>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

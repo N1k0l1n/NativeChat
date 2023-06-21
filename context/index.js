@@ -12,6 +12,7 @@ function GlobalState({ children }) {
   const [currentGroupName, setCurrentGroupName] = useState("");
   const [allChatMessages, setAllChatMessages] = useState([]);
   const [currentChatMesage, setCurrentChatMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   return (
     <GlobalContext.Provider
@@ -34,6 +35,8 @@ function GlobalState({ children }) {
         setAllChatMessages,
         currentChatMesage,
         setCurrentChatMessage,
+        loading,
+        setLoading,
       }}
     >
       {children}
