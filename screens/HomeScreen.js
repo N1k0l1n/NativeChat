@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import homeImage from "../assets/togeather.png";
+import homeImage from "../assets/chat22.png";
 import { GlobalContext } from "../context";
 import ActivityIndicator from "../common/ActivityIndicator";
 
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   subHeading: {
     fontSize: 15,
     color: "#acacac",
-    marginBottom: 15,
+    marginBottom: 20,
   },
   loginInput: {
     borderRadius: 50,
