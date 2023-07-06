@@ -1,3 +1,11 @@
+
+
+https://github.com/N1k0l1n/NativeChat/assets/97979235/4feda384-48d1-40b4-aadd-eb868ff78c5b
+
+
+
+https://github.com/N1k0l1n/NativeChat/assets/97979235/5e14f7ff-2004-4605-b539-faa32ed4d017
+
 # React Native Chat App
 
 A real-time chat application built with React Native and a WebSocket-based Node.js backend .
