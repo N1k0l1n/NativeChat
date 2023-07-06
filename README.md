@@ -1,6 +1,6 @@
 # React Native Chat App
 
-A real-time chat application built with React Native and a WebSocket-based Node.js backend.
+A real-time chat application built with React Native and a WebSocket-based Node.js backend .
 
 ## Features
 
